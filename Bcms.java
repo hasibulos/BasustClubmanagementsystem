@@ -142,14 +142,16 @@ public static class User {
     new Club("Baust English language club", "Cultural", "English", "Core Language is the English", "Mehedi", "https://www.facebook.com/groups/2926733157341939/permalink/9363772723637918/"),
     new Club("Career society Club ", "Technical", "BBA", "Work hard you get more", "Shaon", "https://www.facebook.com/share/1BbZ7TpP3J/"),
     new Club("BAUST COMPUTER CLUB", "Technical", "CSE", "Work hard you get more", "Hasib", "https://www.facebook.com/BaustComputerClub"),
-    new Club("BAUST Mechatronics and Robotics Club ", "Technical", "EEE", "Work hard you get more", "Niloy", "https://www.facebook.com/share/1682Ke4AgT/")
+    new Club("BAUST Mechatronics and Robotics Club ", "Technical", "EEE", "Work hard you get more", "Niloy", "https://www.facebook.com/share/1682Ke4AgT/"),
+    new Club("BAUST Mechatronics and Robotics Club ", "Technical", "ME", "Work hard you get more", "Sakib", "https://www.facebook.com/BAUSTMRC")
+
     
 
 
 );
 
    private final ObservableList<Event> allEvents = FXCollections.observableArrayList(
-    new Event("CSE Fest 2025", "Tech Club", "25th August", "CSE Dept", "A mega tech event", "https://www.example.com/csefest2025"),
+    new Event("CSE Project Showcase 2025", "Organized by CSE 16 Batch", "26th August", "CSE Dept", "26th August, 10:00 AM at the academic building, 3rd floor, to showcase your project.", "https://www.facebook.com/share/p/1FHUkpeQGS/"),
     new Event("Cultural Night", "Cultural Club", "September", "English Dept", "Annual cultural festival", "https://www.example.com/culturalnight")
 );
 
@@ -346,10 +348,10 @@ profile.getItems().add(profileItem);
                 "-fx-border-radius: 12;"
             );
 
-            // Make event name clickable
+             //Make event name clickable
             
             
-            Hyperlink evTitle = new Hyperlink(ev.getTitle());
+          Hyperlink evTitle = new Hyperlink(ev.getTitle());
             evTitle.setFont(Font.font("Arial", FontWeight.BOLD, 18));
             evTitle.setBorder(Border.EMPTY);
             evTitle.setStyle("-fx-text-fill: #212121;");
@@ -371,6 +373,8 @@ profile.getItems().add(profileItem);
     }
 });
 
+
+
             Text evClub = new Text("Club: " + ev.getClubName());
             evClub.setFont(Font.font("Arial", 15));
             evClub.setStyle("-fx-fill: #374151;");
@@ -378,7 +382,7 @@ profile.getItems().add(profileItem);
             evDate.setFont(Font.font("Arial", 15));
             evDate.setStyle("-fx-fill: #374151;");
 
-            Button detailsBtn = new Button(ev.isUpcoming() ? "Register" : "Details");
+            Button detailsBtn = new Button(ev.isUpcoming() ? "Details" : "Details");
             detailsBtn.setStyle(
                 "-fx-background-color: #19706a; " +
                 "-fx-text-fill: #fff; " +
@@ -693,14 +697,14 @@ private void showHomeClubsPage(String filterType, String filterValue) {
     searchField.setPrefWidth(220);
     searchField.setFont(Font.font("Arial", 16));
     Button exploreBtn = new Button("Explore Clubs");
-    Button joinBtn = new Button("Join Now");
+//    Button joinBtn = new Button("Join Now");
     styleMainButton(exploreBtn);
-    styleMainButton(joinBtn);
-    searchBox.getChildren().addAll(searchField, exploreBtn, joinBtn);
+//    styleMainButton(joinBtn);
+    searchBox.getChildren().addAll(searchField, exploreBtn);//joinBtn
     searchBox.setAlignment(Pos.CENTER);
 
     exploreBtn.setOnAction(e -> showHomeClubsPage("all", null));
-    joinBtn.setOnAction(e -> showLoginUI());
+//    joinBtn.setOnAction(e -> showLoginUI());
 
     // --- Featured Clubs Section ---
     VBox clubsSection = new VBox(7);
@@ -804,17 +808,17 @@ private void showHomeClubsPage(String filterType, String filterValue) {
     whyList.setMaxHeight(90);
     whyList.setStyle("-fx-background-color: #f8f9f8; -fx-border-color: #e0e0e0; -fx-border-radius: 10; -fx-background-radius: 10;");
 
-    Button loginBtn = new Button("Login");
-    Button signupBtn = new Button("Sign Up");
-    styleMainButton(loginBtn);
-    styleMainButton(signupBtn);
-    HBox loginSignupBox = new HBox(18, loginBtn, signupBtn);
-    loginSignupBox.setAlignment(Pos.CENTER);
-
-    whyBox.getChildren().addAll(whyTitle, whyList, loginSignupBox);
-
-    loginBtn.setOnAction(e -> showLoginUI());
-    signupBtn.setOnAction(e -> showRegistrationUI());
+////    Button loginBtn = new Button("Login");
+////    Button signupBtn = new Button("Sign Up");
+////    styleMainButton(loginBtn);
+////    styleMainButton(signupBtn);
+//    HBox loginSignupBox = new HBox(18, loginBtn, signupBtn);
+//    loginSignupBox.setAlignment(Pos.CENTER);
+//
+//    whyBox.getChildren().addAll(whyTitle, whyList, loginSignupBox);
+//
+//    loginBtn.setOnAction(e -> showLoginUI());
+//    signupBtn.setOnAction(e -> showRegistrationUI());
 
     VBox mainContent = new VBox(18, headerBox, searchBox, clubsSection, eventsSection, whyBox);
     mainContent.setPadding(new Insets(28));
@@ -949,7 +953,7 @@ private VBox createEventCard(Event ev) {
     Text eventTitle = new Text("Event: " + ev.title);
     eventTitle.setFont(Font.font("Arial", 16));
     Text eventDate = new Text("Date: " + ev.date);
-    Button detailsBtn = new Button(ev.title.equals("Cultural Night") ? "Register" : "Details");
+    Button detailsBtn = new Button(ev.title.equals("Cultural Night") ? "Details" : "Details");
     styleMainButton(detailsBtn);
     detailsBtn.setOnAction(e -> showEventDetails(ev));
     eventCard.getChildren().addAll(eventTitle, eventDate, detailsBtn);
@@ -2062,15 +2066,25 @@ TextField dateField = new TextField(
     private String link;            // <-- Add this field
 
     // Constructor: parses the dateString to LocalDate if possible
-    public Event(String title, String clubName, String dateString, String department, String description, String httpswwwexamplecomcsefest2025) {
-        this.title = title;
-        this.clubName = clubName;
-        this.dateString = dateString;
-        this.department = department;
-        this.description = description;
-        this.link = link;           // <-- Assign link
-        this.date = parseDate(dateString);
-    }
+//    public Event(String title, String clubName, String dateString, String department, String description, String httpswwwexamplecomcsefest2025) {
+//        this.title = title;
+//        this.clubName = clubName;
+//        this.dateString = dateString;
+//        this.department = department;
+//        this.description = description;
+//        this.link = link;           // <-- Assign link
+//        this.date = parseDate(dateString);
+//    }
+    public Event(String title, String clubName, String dateString, String department, String description, String link) {
+    this.title = title;
+    this.clubName = clubName;
+    this.dateString = dateString;
+    this.department = department;
+    this.description = description;
+    this.link = link;  // এখানে ঠিক ভাবে প্যারামিটার "link" নেওয়া হয়েছে
+    this.date = parseDate(dateString);
+}
+
 
     // Helper to parse "25th August" or "September" etc.
     private LocalDate parseDate(String dateString) {
